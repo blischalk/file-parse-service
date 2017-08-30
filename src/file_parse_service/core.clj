@@ -3,6 +3,8 @@
   (:gen-class))
 
 (def data-dir "resources")
+(defrecord Person [lname fname sex fcolor dob])
+(defn row->person [fields] (apply ->Person fields))
 
 (defn read-data-files []
   (let [fs (file-seq (clojure.java.io/file data-dir))
