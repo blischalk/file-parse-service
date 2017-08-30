@@ -7,4 +7,7 @@
   :dependencies [[org.clojure/clojure "1.8.0"]]
   :main ^:skip-aot file-parse-service.core
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all}})
+  :profiles {:dev {:dependencies [[speclj "3.3.0"]]}
+             :uberjar {:aot :all}}
+  :plugins [[speclj "3.3.0"]]
+  :test-paths ["spec"])
