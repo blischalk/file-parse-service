@@ -13,6 +13,10 @@
 (def comma-newline-string "this, is, some, comma, data\nthis, is, more, data")
 (def space-newline-string "this is some space data\nthis is more data")
 
+(defn assert-string-parsed [expected input]
+  (should= expected
+           (ffirst (string-parse-files [input]))))
+
 (describe 'read-data-files
   (context "when data files exist"
     (it "returns aggregate data from data files"
@@ -30,17 +34,18 @@
   (it "converts a parsed row to a Person record"
     (should= p1 (row->person r1))))
 
-(describe 'parse-files
+(describe 'string-parse-files
   (with-stubs)
   (it "splits file data by newline into rows"
-    (should= 2 (count (first (parse-files [pipe-newline-string])))))
+    (should= 2 (count (first (string-parse-files [pipe-newline-string])))))
   (it "parses comma separated rows"
-    (should= ["this" "is" "some" "comma" "data"]
-             (ffirst (parse-files [comma-newline-string]))))
+    (assert-string-parsed ["this" "is" "some" "comma" "data"] comma-newline-string))
   (it "parses pipe separated rows"
-    (should= ["this" "is" "some" "pipe" "data"]
-             (ffirst (parse-files [pipe-newline-string]))))
+    (assert-string-parsed ["this" "is" "some" "pipe" "data"] pipe-newline-string))
   (it "parses space separated rows"
-    (should= ["this" "is" "some" "space" "data"]
-             (ffirst (parse-files [space-newline-string])))))
+    (assert-string-parsed ["this" "is" "some" "space" "data"] space-newline-string)))
 
+
+#_(describe 'rows->people
+  (it "converts rows to people"
+    (should=)))

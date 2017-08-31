@@ -53,7 +53,7 @@
        multiple-files-unparsed-rows))
 
 
-(defn parse-files [data-files-contents]
+(defn string-parse-files [data-files-contents]
   (->> data-files-contents
        (file-contents->unparsed-rows)
        (parse-rows)))
