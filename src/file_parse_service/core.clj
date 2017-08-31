@@ -2,10 +2,14 @@
   (:require [clojure.pprint :refer [pprint]]
             [clojure.tools.cli :refer [parse-opts]]
             [clj-time.format :as f]
+            [file-parse-service.handler :as h]
             [file-parse-service.parse :as p]
-            [file-parse-service.sort :as so])
+            [file-parse-service.sort :as so]
+            [ring.adapter.jetty :refer [run-jetty]])
+
   (:gen-class))
 
+(def ^:private jetty-port 9999)
 (def ^:private version "1.0")
 (def ^:private data-dir "resources")
 (defn ^:private print-formatted-records
@@ -77,7 +81,7 @@
 
     (when (:web-service options)
       (println "Starting webserver...")
-      (println "Not currently implemented!")
+      (run-jetty h/app {:port jetty-port, :join? true})
       (System/exit 0))
 
     (-> *in*

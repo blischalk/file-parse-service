@@ -5,8 +5,11 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[clj-time "0.14.0"]
+                 [metosin/compojure-api "1.1.10"]
+                 [metosin/ring-swagger-ui "2.2.10"]
                  [org.clojure/clojure "1.8.0"]
-                 [org.clojure/tools.cli "0.3.5"]]
+                 [org.clojure/tools.cli "0.3.5"]
+                 [ring "1.6.1"]]
   :main ^:skip-aot file-parse-service.core
   :target-path "target/%s"
   :profiles {:dev {:dependencies [[speclj "3.3.0"]]}

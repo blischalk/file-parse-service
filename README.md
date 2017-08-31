@@ -46,6 +46,14 @@ Parse and sort ALL data files in the resources directory by "dob"
 
     lein run - -r -s dob
 
+Start record api web service
+
+    lein run - -w
+
+Api will start on at:
+
+[http://localhost:9999/index.html](http://localhost:9999/index.html)
+
 ## License
 
 Copyright © 2017 Brett Lischalk
