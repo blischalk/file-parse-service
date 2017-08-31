@@ -2,6 +2,7 @@
   (:require [compojure.api.sweet :refer :all]
             [file-parse-service.parse :as p]
             [file-parse-service.read :refer :all]
+            [file-parse-service.sort :as so]
             [ring.util.http-response :refer :all]
             [schema.core :as s]))
 
@@ -21,4 +22,12 @@
 
       (GET "/gender" []
         :summary "returns records sortd by gender"
-        (ok {:result @records})))))
+        (ok {:result (so/sort-by-field @records "sex")}))
+
+      (GET "/name" []
+        :summary "returns records sortd by last name"
+        (ok {:result (so/sort-by-field @records "lname")}))
+
+      (GET "/birthdate" []
+        :summary "returns records sortd by birthdate"
+        (ok {:result (so/sort-by-field @records "dob")})))))
