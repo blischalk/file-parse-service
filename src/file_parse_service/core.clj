@@ -18,27 +18,27 @@
               records)))
 
 
-(defn validate-sort-field
-  "Verifies that a supplied field to sort on is valid."
-  [field]
-  (let [valid-fields ["fname" "lname" "fcolor" "sex" "dob"]]
-    (if (.contains valid-fields field) field
-        (throw (AssertionError. "Unknown field error")))))
-
-
-(defn sort-by-field
+(defn ^:private sort-by-field
   "Keywordize sort field and sort data by it"
   [data field]
   (sort-by (keyword field) data))
 
 
-(defn parse-sort-print
+(defn ^:private parse-sort-print
   "parses, sorts, and prints formatted data"
   [data sort-field]
   (-> data
       p/parse-files
       (sort-by-field sort-field)
       print-formatted-records))
+
+
+(defn ^:private validate-sort-field
+  "Verifies that a supplied field to sort on is valid."
+  [field]
+  (let [valid-fields ["fname" "lname" "fcolor" "sex" "dob"]]
+    (if (.contains valid-fields field) field
+        (throw (AssertionError. "Unknown field error")))))
 
 
 (defn read-data-files
@@ -53,7 +53,6 @@
       (#(if-not %1
           []
           (map slurp %1)))))
-
 
 
 (defn -main
