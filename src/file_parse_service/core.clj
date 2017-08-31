@@ -4,6 +4,7 @@
             [clj-time.format :as f]
             [file-parse-service.handler :as h]
             [file-parse-service.parse :as p]
+            [file-parse-service.read :as r]
             [file-parse-service.sort :as so]
             [ring.adapter.jetty :refer [run-jetty]])
 
@@ -11,7 +12,6 @@
 
 (def ^:private jetty-port 9999)
 (def ^:private version "1.0")
-(def ^:private data-dir "resources")
 (defn ^:private print-formatted-records
   "Formats and prints records"
   [records]
@@ -42,20 +42,6 @@
         (throw (AssertionError. "Unknown field error")))))
 
 
-(defn read-data-files
-  "Reads data files from the data-dir into a collection.
-  Each item in the collection is a string which separates
-  each row of data by a newline"
-  []
-  (-> data-dir
-      clojure.java.io/file
-      file-seq
-      rest
-      (#(if-not %1
-          []
-          (map slurp %1)))))
-
-
 (defn -main
   "Parses and sorts data from std in, from a directory of files, or
   makes data parsing and sorting avaiable via webservic."
@@ -75,7 +61,7 @@
 
     (when (:read-datafiles options)
       (println "Reading data from datafiles in resources directory...")
-      (parse-sort-print (read-data-files)
+      (parse-sort-print (r/read-data-files)
                         (validate-sort-field (:sort-by options)))
       (System/exit 0))
 
