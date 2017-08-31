@@ -1,13 +1,14 @@
 (ns file-parse-service.parse)
 
 (defrecord Person [lname fname sex fcolor dob])
-(defn row->person [fields] (apply ->Person fields))
+(defn row->person
+"Converts a row of fields as trings to a Person record"
+[fields] (apply ->Person fields))
 
 (defn split-and-trim-by
 "Composed function of splitting and trimming on a deliminator"
 [string delim]
-  (->> (clojure.string/split string delim)
-       (map clojure.string/trim)))
+(map clojure.string/trim (clojure.string/split string delim)))
 
 
 (defn file-contents->unparsed-rows

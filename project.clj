@@ -9,5 +9,6 @@
   :target-path "target/%s"
   :profiles {:dev {:dependencies [[speclj "3.3.0"]]}
              :uberjar {:aot :all}}
-  :plugins [[speclj "3.3.0"]]
+  :plugins [[lein-bikeshed "0.4.1"]
+            [speclj "3.3.0"]]
   :test-paths ["spec"])
