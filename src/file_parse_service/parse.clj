@@ -1,4 +1,5 @@
-(ns file-parse-service.parse)
+(ns file-parse-service.parse
+  (:require [clojure.string :as s]))
 
 (defrecord Person [lname fname sex fcolor dob])
 (defn ^:private row->person
@@ -8,14 +9,14 @@
 (defn ^:private split-and-trim-by
 "Composed function of splitting and trimming on a deliminator"
 [string delim]
-(map clojure.string/trim (clojure.string/split string delim)))
+(map s/trim (s/split string delim)))
 
 
 (defn ^:private file-contents->unparsed-rows
 "Iterates over a collection of the contents ffrom files and divides
  each files contents into individual rows by newlines"
 [data-files-contents]
-  (map #(clojure.string/split %1 #"\n") data-files-contents))
+  (map #(s/split %1 #"\n") data-files-contents))
 
 
 (defn ^:private parse-row
