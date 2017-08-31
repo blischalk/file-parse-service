@@ -8,6 +8,16 @@ Download from https://github.com/blischalk/file-parse-service.
 
 ## Usage
 
+NOTE: Sorting defaults to lname
+
+Sortable fields:
+
+- fname
+- lname
+- fcolor
+- sex
+- dob
+
 Run tests:
 
     lein spec
@@ -22,9 +32,19 @@ Parse and sort a single file via stdin:
     lein run - < resources/datafile2.csv <-- comma deliminated
     lein run - < resources/datafile3.csv <-- space deliminated
 
-Parse and sort ALL data files in the
+
+Parse and sort a single file via stdin:
+
+    lein run - -s dob < resources/datafile1.csv <-- pipe deliminated
+
+Parse and sort ALL data files in the resources directory
 
     lein run - -r
+
+
+Parse and sort ALL data files in the resources directory by "dob"
+
+    lein run - -r -s dob
 
 ## License
 
