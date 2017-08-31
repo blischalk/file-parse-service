@@ -23,22 +23,17 @@
 (defn assert-parsed [expected input]
   (->> [input]
        parse-files
-       ffirst
+       first
        (should= expected)))
-
-
-(describe 'row->person
-  (it "converts a parsed row to a Person record"
-    (should= p1 (row->person r1))))
 
 
 (describe 'parse-files
   (with-stubs)
   (it "splits file data by newline into rows"
-    (should= 2 (count (first (parse-files [pipe-newline-string])))))
-  (it "parses comma separated rows"
+    (should= 2 (count (parse-files [pipe-newline-string]))))
+  (it "parses comma separated rows into person records"
     (assert-parsed p1 comma-newline-string))
-  (it "parses pipe separated rows"
+  (it "parses pipe separated rows into person records"
     (assert-parsed p1 pipe-newline-string))
-  (it "parses space separated rows"
+  (it "parses space separated rows into preson records"
     (assert-parsed p1 space-newline-string)))
