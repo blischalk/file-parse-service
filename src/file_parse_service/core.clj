@@ -6,7 +6,9 @@
 
 (def ^:private version "1.0")
 (def ^:private data-dir "resources")
-(defn ^:private print-formatted-records [records]
+(defn ^:private print-formatted-records
+  "Formats and prints records"
+  [records]
   (dorun (map (fn [{:keys [lname fname fcolor sex dob]}]
                 (println (str "FirstName: " fname
                               " LastName: " lname
@@ -16,27 +18,42 @@
               records)))
 
 
-(defn validate-sort-field [field]
+(defn validate-sort-field
+  "Verifies that a supplied field to sort on is valid."
+  [field]
   (let [valid-fields ["fname" "lname" "fcolor" "sex" "dob"]]
     (if (.contains valid-fields field) field
         (throw (AssertionError. "Unknown field error")))))
 
 
-(defn sort-by-field [data field] (sort-by (keyword field) data))
+(defn sort-by-field
+  "Keywordize sort field and sort data by it"
+  [data field]
+  (sort-by (keyword field) data))
+
+
+(defn parse-sort-print
+  "parses, sorts, and prints formatted data"
+  [data sort-field]
+  (-> data
+      p/parse-files
+      (sort-by-field sort-field)
+      print-formatted-records))
 
 
 (defn read-data-files
-"Reads data files from the data-dir into a collection.
- Each item in the collection is a string which separates
- each row of data by a newline"
-[]
+  "Reads data files from the data-dir into a collection.
+  Each item in the collection is a string which separates
+  each row of data by a newline"
+  []
   (-> data-dir
       clojure.java.io/file
       file-seq
       rest
       (#(if-not %1
-           []
-           (map slurp %1)))))
+          []
+          (map slurp %1)))))
+
 
 
 (defn -main
@@ -58,8 +75,8 @@
 
     (when (:read-datafiles options)
       (println "Reading data from datafiles in resources directory...")
-      (print-formatted-records (sort-by-field (p/parse-files (read-data-files))
-                                              (validate-sort-field (:sort-by options))))
+      (parse-sort-print (read-data-files)
+                        (validate-sort-field (:sort-by options)))
       (System/exit 0))
 
     (when (:web-service options)
@@ -67,8 +84,9 @@
       (println "Not currently implemented!")
       (System/exit 0))
 
-    (let [data-from-stdin (slurp *in*)
-          parsed (p/parse-files [data-from-stdin])
-          parsed-and-sorted parsed]
-      (print-formatted-records parsed-and-sorted)
-      (System/exit 0))))
+    (-> *in*
+        slurp
+        vector
+        (parse-sort-print (validate-sort-field (:sort-by options))))
+
+    (System/exit 0)))
