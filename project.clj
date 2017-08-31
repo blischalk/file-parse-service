@@ -4,7 +4,8 @@
   :url "http://github.com/blischalk/file-parse-service"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :dependencies [[org.clojure/clojure "1.8.0"]
+  :dependencies [[clj-time "0.14.0"]
+                 [org.clojure/clojure "1.8.0"]
                  [org.clojure/tools.cli "0.3.5"]]
   :main ^:skip-aot file-parse-service.core
   :target-path "target/%s"

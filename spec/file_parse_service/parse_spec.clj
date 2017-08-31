@@ -2,11 +2,11 @@
   (:require [speclj.core :refer :all]
             [file-parse-service.parse :refer :all]))
 
-(def r1 ["doe" "john" "blue" "male" "08-01-82"])
-(def r2 ["smith" "harold" "purple" "male" "06-01-82"])
+(def r1 ["doe" "john" "blue" "male" "08-01-1982"])
+(def r2 ["smith" "harold" "purple" "male" "06-01-1982"])
 (def rows [r1 r2])
-(def p1 (apply ->Person r1))
-(def p2 (apply ->Person r2))
+(def p1 (row->person r1))
+(def p2 (row->person r2))
 (def parsed-rows [p1 p2])
 (defn make-deliminated-string [rows delim]
   (->> rows

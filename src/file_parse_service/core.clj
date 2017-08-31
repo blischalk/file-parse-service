@@ -1,7 +1,9 @@
 (ns file-parse-service.core
   (:require [clojure.pprint :refer [pprint]]
             [clojure.tools.cli :refer [parse-opts]]
-            [file-parse-service.parse :as p])
+            [clj-time.format :as f]
+            [file-parse-service.parse :as p]
+            [file-parse-service.sort :as so])
   (:gen-class))
 
 (def ^:private version "1.0")
@@ -14,14 +16,9 @@
                               " LastName: " lname
                               " FavoriteColor: " fcolor
                               " Sex: " sex
-                              " DOB: " dob)))
+                              " DOB: " (f/unparse (f/formatter "MM-dd-yyyy")
+                                                  dob))))
               records)))
-
-
-(defn ^:private sort-by-field
-  "Keywordize sort field and sort data by it"
-  [data field]
-  (sort-by (keyword field) data))
 
 
 (defn ^:private parse-sort-print
@@ -29,7 +26,7 @@
   [data sort-field]
   (-> data
       p/parse-files
-      (sort-by-field sort-field)
+      (so/sort-by-field sort-field)
       print-formatted-records))
 
 
