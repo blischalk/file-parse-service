@@ -39,11 +39,12 @@
 "Converts a delimated row string into collections of strings for each
   field"
 [row]
-  (let [sp-tr-row (partial split-and-trim-by row)]
-    (cond
-     (.contains row ",") (sp-tr-row #", ")
-     (.contains row "|") (sp-tr-row #"\|")
-     :else (sp-tr-row #" "))))
+(let [sp-tr-row (partial split-and-trim-by row)
+      fields (cond
+              (.contains row ",") (sp-tr-row #", ")
+              (.contains row "|") (sp-tr-row #"\|")
+              :else (sp-tr-row #" "))]
+  (row->person fields)))
 
 
 (defn parse-rows
@@ -53,7 +54,10 @@
        multiple-files-unparsed-rows))
 
 
-(defn string-parse-files [data-files-contents]
+(defn parse-files
+"Parses data files with various deliminaters
+into Person records"
+[data-files-contents]
   (->> data-files-contents
        (file-contents->unparsed-rows)
        (parse-rows)))
