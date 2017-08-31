@@ -1,36 +1,34 @@
 # file-parse-service
 
-FIXME: description
+Parse and sort data in data files that include different deliminaters.
 
 ## Installation
 
-Download from http://example.com/FIXME.
+Download from https://github.com/blischalk/file-parse-service.
 
 ## Usage
 
-FIXME: explanation
+Run tests:
 
-    $ java -jar file-parse-service-0.1.0-standalone.jar [args]
+    lein spec
 
-## Options
+Run tests automatically:
 
-FIXME: listing of options this app accepts.
+    lein spec -a
 
-## Examples
+Parse and sort a single file via stdin:
 
-...
+    lein run - < resources/datafile1.csv <-- pipe deliminated
+    lein run - < resources/datafile2.csv <-- comma deliminated
+    lein run - < resources/datafile3.csv <-- space deliminated
 
-### Bugs
+Parse and sort ALL data files in the
 
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
+    lein run - -r
 
 ## License
 
-Copyright © 2017 FIXME
+Copyright © 2017 Brett Lischalk
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.

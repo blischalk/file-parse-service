@@ -27,7 +27,8 @@
               (.contains row ",") (sp-tr-row #", ")
               (.contains row "|") (sp-tr-row #"\|")
               (.contains row " ") (sp-tr-row #" ")
-              :else (throw (str "Unable to parse row: " row)))]
+              :else (throw (AssertionError.
+                            (str "Unable to parse row: " row))))]
   (row->person fields)))
 
 

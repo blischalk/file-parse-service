@@ -6,6 +6,24 @@
 
 (def ^:private version "1.0")
 (def ^:private data-dir "resources")
+(defn ^:private print-formatted-records [records]
+  (dorun (map (fn [{:keys [lname fname fcolor sex dob]}]
+                (println (str "FirstName: " fname
+                              " LastName: " lname
+                              " FavoriteColor: " fcolor
+                              " Sex: " sex
+                              " DOB: " dob)))
+              records)))
+
+
+(defn validate-sort-field [field]
+  (let [valid-fields ["fname" "lname" "fcolor" "sex" "dob"]]
+    (if (.contains valid-fields field) field
+        (throw (AssertionError. "Unknown field error")))))
+
+
+(defn sort-by-field [data field] (sort-by (keyword field) data))
+
 
 (defn read-data-files
 "Reads data files from the data-dir into a collection.
@@ -19,16 +37,6 @@
       (#(if-not %1
            []
            (map slurp %1)))))
-
-
-(defn ^:private print-formatted-records [records]
-  (dorun (map (fn [{:keys [lname fname fcolor sex dob]}]
-                (println (str "FirstName: " fname
-                              " LastName: " lname
-                              " FavoriteColor: " fcolor
-                              " Sex: " sex
-                              " DOB: " dob)))
-              records)))
 
 
 (defn -main
@@ -50,7 +58,8 @@
 
     (when (:read-datafiles options)
       (println "Reading data from datafiles in resources directory...")
-      (print-formatted-records (p/parse-files (read-data-files)))
+      (print-formatted-records (sort-by-field (p/parse-files (read-data-files))
+                                              (validate-sort-field (:sort-by options))))
       (System/exit 0))
 
     (when (:web-service options)
