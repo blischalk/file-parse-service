@@ -9,4 +9,4 @@
   (it "sorts by birth date ascending"
     (should= [p2 p3 p4 p1] (sort-by-field records "dob")))
   (it "sorts by gender (females before males), last name asc"
-    (should= [p4 p1 p2 p3] (sort-by-field records "sex"))))
+    (should= [p4 p1 p2 p3] (sort-by-field records "gender"))))

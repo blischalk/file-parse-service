@@ -16,11 +16,11 @@
 (defn ^:private print-formatted-records
   "Formats and prints records"
   [records]
-  (dorun (map (fn [{:keys [lname fname fcolor sex dob]}]
+  (dorun (map (fn [{:keys [lname fname fcolor gender dob]}]
                 (println (str "FirstName: " fname
                               " LastName: " lname
                               " FavoriteColor: " fcolor
-                              " Sex: " sex
+                              " Gender: " gender
                               " DOB: " (f/unparse (f/formatter "MM-dd-yyyy")
                                                   dob))))
               records)))
@@ -38,7 +38,7 @@
 (defn ^:private validate-sort-field
   "Verifies that a supplied field to sort on is valid."
   [field]
-  (let [valid-fields ["fname" "lname" "fcolor" "sex" "dob"]]
+  (let [valid-fields ["fname" "lname" "fcolor" "gender" "dob"]]
     (if (.contains valid-fields field) field
         (throw (AssertionError. "Unknown sort field error")))))
 

@@ -17,7 +17,7 @@
   {:fname s/Str
    :lname s/Str
    :fcolor s/Str
-   :sex s/Str
+   :gender s/Str
    :dob s/Str})
 
 
@@ -42,7 +42,7 @@
 
       (GET "/gender" []
         :summary "returns records sortd by gender"
-        (ok {:result (so/sort-by-field @records "sex")}))
+        (ok {:result (so/sort-by-field @records "gender")}))
 
       (GET "/name" []
         :summary "returns records sortd by last name"

@@ -15,7 +15,7 @@ Sortable fields:
 - fname
 - lname
 - fcolor
-- sex
+- gender
 - dob
 
 Run tests:

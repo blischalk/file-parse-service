@@ -35,7 +35,7 @@
   (describe "/"
     (with sample-person {:fname "Jade"
                          :lname "Moleman"
-                         :sex "Male"
+                         :gender "Male"
                          :fcolor "Orange"
                          :dob "03-06-1993"})
     (with person-post-request #(mock-json-request :post
@@ -54,7 +54,7 @@
     (it "exists"
       (should= (:status (@gender-request)) 200))
     (it "sorts by gender (females before males), last name asc"
-      (should= (sort-records->json su/records "sex")
+      (should= (sort-records->json su/records "gender")
                (get (:body (@gender-request)) "result"))))
 
   (describe "/name"

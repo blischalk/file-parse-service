@@ -4,11 +4,11 @@
   (:require [clojure.string :as s]
             [clj-time.format :as f]))
 
-(defrecord Person [lname fname sex fcolor dob])
+(defrecord Person [lname fname gender fcolor dob])
 (defn row->person
-  "Converts a row of fields as trings to a Person record"
-  [[lname fname sex fcolor dob]]
-  (->Person lname fname sex fcolor (f/parse (f/formatter "MM-dd-yyyy")
+  "Converts a row of fields as strings to a Person record"
+  [[lname fname gender fcolor dob]]
+  (->Person lname fname gender fcolor (f/parse (f/formatter "MM-dd-yyyy")
                                             dob)))
 
 (defn ^:private split-and-trim-by

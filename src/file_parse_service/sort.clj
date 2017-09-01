@@ -4,17 +4,17 @@
 
 (declare sort-by-field)
 
-(defn filter-by-sex
-  "Filter collection of Person records by sex field"
-  [people sex]
-  (filter #(= (:sex %1) sex) people))
+(defn filter-by-gender
+  "Filter collection of Person records by gender field"
+  [people gender]
+  (filter #(= (:gender %1) gender) people))
 
 
-(defn sort-by-sex
-  "Sort a collection of Person records by sex"
+(defn sort-by-gender
+  "Sort a collection of Person records by gender"
   [data]
   (let [tmp-fn #(-> data
-                    (filter-by-sex %1)
+                    (filter-by-gender %1)
                     (sort-by-field "lname")
                     reverse)
         females (tmp-fn "Female")
@@ -28,5 +28,5 @@
   (let [sbk (partial sort-by (keyword field))]
     (case field
       "lname" (reverse (sbk data))
-      "sex" (sort-by-sex data)
+      "gender" (sort-by-gender data)
       (sbk data))))
