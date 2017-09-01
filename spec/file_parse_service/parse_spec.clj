@@ -35,5 +35,5 @@
     (assert-parsed p1 comma-newline-string))
   (it "parses pipe separated rows into person records"
     (assert-parsed p1 pipe-newline-string))
-  (it "parses space separated rows into preson records"
+  (it "parses space separated rows into person records"
     (assert-parsed p1 space-newline-string)))

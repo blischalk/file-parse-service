@@ -8,6 +8,14 @@
 
 (def records (atom (p/parse-files (read-data-files))))
 
+(s/defschema Person
+  {:fname s/Str
+   :lname s/Str
+   :fcolor s/Str
+   :sex s/Str
+   :dob s/Str})
+
+
 (def app
   (api
     {:swagger
@@ -19,6 +27,12 @@
 
     (context "/records" []
       :tags ["api"]
+      (POST "/" []
+        :body [person Person]
+        :summary "Returns collection of people"
+        (do
+          (swap! records conj (p/map->Person person))
+          (ok {:result (so/sort-by-field @records "lname")})))
 
       (GET "/gender" []
         :summary "returns records sortd by gender"

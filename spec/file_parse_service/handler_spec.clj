@@ -32,25 +32,42 @@
     (with-redefs [file-parse-service.handler/records (atom su/records)]
       (it)))
 
+  (describe "/"
+    (with sample-person {:fname "Jade"
+                         :lname "Moleman"
+                         :sex "Male"
+                         :fcolor "Orange"
+                         :dob "03-06-1993"})
+    (with person-post-request #(mock-json-request :post
+                                                  "/records"
+                                                  @sample-person))
+    (it "exists"
+      (should= (:status (@person-post-request)) 200))
+    (it "returns people data set augmented with new person"
+      (-> su/records
+          (conj (p/map->Person @sample-person))
+          (sort-records->json "lname")
+          (should= (get (:body (@person-post-request)) "result")))))
+
   (describe "/gender"
     (with gender-request #(mock-json-request :get "/records/gender" {}))
-    (it "reports success"
+    (it "exists"
       (should= (:status (@gender-request)) 200))
     (it "sorts by gender (females before males), last name asc"
       (should= (sort-records->json su/records "sex")
                (get (:body (@gender-request)) "result"))))
 
-  (describe "name"
+  (describe "/name"
     (with name-request #(mock-json-request :get "/records/name" {}))
-    (it "reports success"
+    (it "exists"
       (should= (:status (@name-request)) 200))
     (it "sorts by last name decending"
       (should= (sort-records->json su/records "lname")
                (get (:body (@name-request)) "result"))))
 
-  (describe "birthdate"
+  (describe "/birthdate"
     (with birthdate-request #(mock-json-request :get "/records/birthdate" {}))
-    (it "reports success"
+    (it "exists"
       (should= (:status (@birthdate-request)) 200))
     (it "sorts by birth date ascending"
       (should= (sort-records->json su/records "dob")
