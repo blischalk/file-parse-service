@@ -4,13 +4,13 @@
 
 (declare sort-by-field)
 
-(defn filter-by-gender
+(defn ^:private filter-by-gender
   "Filter collection of Person records by gender field"
   [people gender]
   (filter #(= (:gender %1) gender) people))
 
 
-(defn sort-by-gender
+(defn ^:private sort-by-gender
   "Sort a collection of Person records by gender"
   [data]
   (let [tmp-fn #(-> data
