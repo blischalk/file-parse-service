@@ -26,27 +26,27 @@ Run tests automatically:
 
     lein spec -a
 
-Parse and sort a single file via stdin:
+Parse a single file via stdin using default sorting:
 
     lein run - < resources/datafile1.csv <-- pipe deliminated
     lein run - < resources/datafile2.csv <-- comma deliminated
     lein run - < resources/datafile3.csv <-- space deliminated
 
 
-Parse and sort a single file via stdin:
+Parse a single file via stdin and sort by date of birth:
 
     lein run - -s dob < resources/datafile1.csv <-- pipe deliminated
 
-Parse and sort ALL data files in the resources directory
+Parse and sort ALL data files in the resources directory:
 
     lein run - -r
 
 
-Parse and sort ALL data files in the resources directory by "dob"
+Parse and sort ALL data files in the resources directory by date of birth:
 
     lein run - -r -s dob
 
-Start record api web service
+Start record api web service:
 
     lein run - -w
 
