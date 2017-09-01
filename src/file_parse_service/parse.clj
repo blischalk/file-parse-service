@@ -49,6 +49,6 @@
   into Person records"
   [data-files-contents]
   (->> data-files-contents
-       (file-contents->unparsed-rows)
-       (parse-rows)
+       file-contents->unparsed-rows
+       parse-rows
        flatten))
