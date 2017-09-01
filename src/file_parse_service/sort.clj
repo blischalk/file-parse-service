@@ -1,14 +1,25 @@
-(ns file-parse-service.sort)
+(ns file-parse-service.sort
+  "Sort namespace provides functionality for sorting Person records by
+  various fields")
 
 (declare sort-by-field)
 
+(defn filter-by-sex
+  "Filter collection of Person records by sex field"
+  [people sex]
+  (filter #(= (:sex %1) sex) people))
+
+
 (defn sort-by-sex
-[data]
-(let [females (filter (fn [r] (= (:sex r) "Female")) data)
-      males (filter (fn [r] (= (:sex r) "Male")) data)
-      sorted-females (reverse (sort-by-field females "lname"))
-      sorted-males (reverse (sort-by-field males "lname"))]
-  (concat sorted-females sorted-males)))
+  "Sort a collection of Person records by sex"
+  [data]
+  (let [tmp-fn #(-> data
+                    (filter-by-sex %1)
+                    (sort-by-field "lname")
+                    reverse)
+        females (tmp-fn "Female")
+        males (tmp-fn "Male")]
+    (concat females males)))
 
 
 (defn sort-by-field

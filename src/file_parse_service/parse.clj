@@ -1,4 +1,6 @@
 (ns file-parse-service.parse
+  "Parse namespace provides functionality for parsing data files with
+  various deliminaters into Person records"
   (:require [clojure.string :as s]
             [clj-time.format :as f]))
 

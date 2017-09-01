@@ -1,6 +1,9 @@
-(ns file-parse-service.read)
+(ns file-parse-service.read
+  "Read namespace provides functionality for reading data from data files")
 
-(def ^:private data-dir "resources")
+(def ^:private data-dir
+  "Directory where datafiles for the application are read"
+  "resources")
 
 (defn read-data-files
   "Reads data files from the data-dir into a collection.

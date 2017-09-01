@@ -1,4 +1,5 @@
 (ns file-parse-service.handler
+  "Handler namespace provides REST API for file parsing service"
   (:require [compojure.api.sweet :refer :all]
             [file-parse-service.parse :as p]
             [file-parse-service.read :refer :all]
@@ -6,9 +7,13 @@
             [ring.util.http-response :refer :all]
             [schema.core :as s]))
 
-(def records (atom (p/parse-files (read-data-files))))
+(def records
+  "Collection of Person records used as in-memory database"
+  (atom (p/parse-files (read-data-files))))
 
-(s/defschema Person
+(s/defschema
+  Person
+  "Structure of params for a Person record"
   {:fname s/Str
    :lname s/Str
    :fcolor s/Str
@@ -17,6 +22,7 @@
 
 
 (def app
+  "Ring handler which provides the routing for the application"
   (api
     {:swagger
      {:ui "/"

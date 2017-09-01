@@ -1,4 +1,5 @@
 (ns file-parse-service.core
+  "Provides the main startup functionality and command argument parsing."
   (:require [clojure.pprint :refer [pprint]]
             [clojure.tools.cli :refer [parse-opts]]
             [clj-time.format :as f]
@@ -10,8 +11,8 @@
 
   (:gen-class))
 
-(def ^:private jetty-port 9999)
-(def ^:private version "1.0")
+(def ^:private jetty-port "The port to run Jetty on" 9999)
+(def ^:private version "The current version of the application" "1.0")
 (defn ^:private print-formatted-records
   "Formats and prints records"
   [records]
@@ -39,7 +40,7 @@
   [field]
   (let [valid-fields ["fname" "lname" "fcolor" "sex" "dob"]]
     (if (.contains valid-fields field) field
-        (throw (AssertionError. "Unknown field error")))))
+        (throw (AssertionError. "Unknown sort field error")))))
 
 
 (defn -main
