@@ -25,8 +25,7 @@
 
 
 (defn ^:private parse-row
-  "Converts a delimated row string into collections of strings for each
-  field"
+  "Converts a delimated row string into collections of person records"
   [row]
   (let [sp-tr-row (partial split-and-trim-by row)
         fields (cond
